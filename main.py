@@ -27,6 +27,30 @@ largefont = pygame.font.SysFont("arialms  ",80)
 	# randAppleY = round(random.randrange(0, display_height-appleThickness))#/10.0)*10
 	# return randAppleX , randAppleY
 
+def pause():
+	paused = True
+	
+				
+	message_to_screen("Pausado" , white , -100, "large")
+	message_to_screen("C para continuar Q para sair" , white , 25)
+	
+	pygame.display.update()
+	clock.tick(5)		
+	
+	while paused:
+		for event in pygame.event.get():
+			if event.type == pygame.QUIT:
+				pygame.quit()
+				quit()
+			if event.type == pygame.KEYDOWN:
+				if event.key == pygame.K_c:
+					paused = False
+				
+				elif event.key == pygame.K_q:
+					pygame.quit()
+					quit()
+		
+	
 def telas (tela):
 	gameDisplay.blit(tela , [0,0])
 	
@@ -168,6 +192,9 @@ def gameLoop():
 					#direction = "down"
 					lead_y_change = block_size
 					lead_x_change = 0
+				
+				elif event.key == pygame.K_p:
+					pause()
 			
 			elif event.type == pygame.KEYUP:	
 				if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:

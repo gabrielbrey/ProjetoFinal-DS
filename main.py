@@ -55,35 +55,50 @@ def telas (tela):
 	gameDisplay.blit(tela , [0,0])
 	
 def game_intro():
+	logoy = (display_height/2)-150
+	
 	intro = True
 	while intro :
+		
 		for event in pygame.event.get():	
 			if event.type == pygame.QUIT:
 				pygame.quit()
 				quit()
 			if event.type == pygame.KEYDOWN:
 				if event.key == pygame.K_c:
+					while logoy>0:
+						logoy+=10
+						
+						pygame.display.update()            #and show it all
+		            #stop the program for 1/10 second
+						
+					
 					intro = False
 				if event.key == pygame.K_q:
 					pygame.quit()
 					quit()
 				
-			
-		gameDisplay.fill(black)
+		telas(tela)	
+		gameDisplay.blit(logoimg , [0, logoy])
 		
-		message_to_screen("Dungeon Runners",red,-100,"large")
+		#gameDisplay.fill(black)
+		
+		#message_to_screen("Dungeon Runners",red,-100,"large")
 		message_to_screen("Use as cetas do teclado para se mover",white,-30)
-		message_to_screen("C para jogar  e Q para sair", white,10)
-		message_to_screen("", white,50)
+		message_to_screen("C para Jogar Q para sair", white,10)
+		message_to_screen("Scoreboard", white,50)
+		message_to_screen("Q para Sair", white,70)
 
+		
 		pygame.display.update()
-		clock.tick(15)
+		clock.tick(5)		
+	
 
 def score(score):
 	text = smallfont.render("Score: " + str(score),True , white)
 	gameDisplay.blit(text,[0,0])
 		
-def snake (snakelist,block_size):
+def player (posi,block_size):
 	if direction == "right":
 		head = imgr
 	if direction == "left":
@@ -93,7 +108,7 @@ def snake (snakelist,block_size):
 	#if direction == "down":
 	#	head = imgl
 
-	gameDisplay.blit(head,(snakelist[-1][0], snakelist[-1][1]))
+	gameDisplay.blit(head,(posi[-1][0], posi[-1][1]))
 
 def text_objetcs (text , color,size):
 	if size == 'small':
@@ -109,6 +124,8 @@ def message_to_screen (msg,color,y_displace=0,size = "small"):
 	txtSurf , txtRect = text_objetcs(msg , color,size)
 	txtRect.center = (display_width/2 ),(display_height/2)+y_displace
 	gameDisplay.blit(txtSurf , txtRect)
+
+	
 	
 gameDisplay = pygame.display.set_mode((display_width,display_height))
 pygame.display.set_caption("Dungeon Runners")
@@ -118,6 +135,7 @@ pygame.display.update()
 
 imgl = pygame.image.load('knightr.png')
 imgr = pygame.image.load('knightl.png')
+logoimg =pygame.image.load('logo.png')
 telainicio = pygame.image.load('room.png')
 tela2 = pygame.image.load('room2.png')
 tela3 = pygame.image.load('room3.png')
@@ -144,7 +162,7 @@ def gameLoop():
 	lead_x_change = 10
 	lead_y_change = 0
 	
-	snakelist = []
+	posi = []
 	snakeLenght = 1
 	
 
@@ -262,13 +280,13 @@ def gameLoop():
 		snakehead = []
 		snakehead.append(lead_x)
 		snakehead.append(lead_y)
-		snakelist.append(snakehead)
+		posi.append(snakehead)
 		
-		if len(snakelist)> snakeLenght:
-			del snakelist[0]
+		if len(posi)> snakeLenght:
+			del posi[0]
 		
 			
-		snake(snakelist,block_size)
+		player(posi,block_size)
 		
 		
 		pygame.display.update()

@@ -66,11 +66,7 @@ def game_intro():
 				quit()
 			if event.type == pygame.KEYDOWN:
 				if event.key == pygame.K_c:
-					while logoy>0:
-						logoy+=10
-						
-						pygame.display.update()            #and show it all
-		            #stop the program for 1/10 second
+			
 						
 					
 					intro = False

@@ -275,10 +275,10 @@ def gameLoop():
 		
 		telas(tela)
 	
-		snakehead = []
-		snakehead.append(lead_x)
-		snakehead.append(lead_y)
-		posi.append(snakehead)
+		listaposi = []
+		listaposi.append(lead_x)
+		listaposi.append(lead_y)
+		posi.append(listaposi)
 		
 		if len(posi)> snakeLenght:
 			del posi[0]

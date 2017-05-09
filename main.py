@@ -31,11 +31,15 @@ def pause():
 	paused = True
 	
 				
-	message_to_screen("Pausado" , white , -100, "large")
-	message_to_screen("C para continuar Q para sair" , white , 25)
+	message_to_screen("Pausado" , white , 25, "large")
+	message_to_screen("C para continuar Q para sair" , white , 75)
+	
+	gameDisplay.blit(logoimg , [0, (display_height/2)-150])
 	
 	pygame.display.update()
 	clock.tick(5)		
+	
+	
 	
 	while paused:
 		for event in pygame.event.get():
@@ -66,8 +70,6 @@ def game_intro():
 				quit()
 			if event.type == pygame.KEYDOWN:
 				if event.key == pygame.K_c:
-			
-						
 					
 					intro = False
 				if event.key == pygame.K_q:
@@ -153,7 +155,7 @@ def gameLoop():
 	gameExit = False
 	gameOver = False
 
-	lead_x = display_width/2
+	lead_x = 0  #display_width/2
 	lead_y = display_height/2
 	lead_x_change = 10
 	lead_y_change = 0

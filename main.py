@@ -8,6 +8,7 @@ white = (255,255,255)
 black  = (0,0,0)
 red = (255,0,0)
 green = (0,155,0)
+trans = (255,255,255,128)
 
 display_width = 800
 display_height = 600
@@ -30,18 +31,19 @@ largefont = pygame.font.SysFont("arialms  ",80)
 def pause():
 	paused = True
 	
-				
-	message_to_screen("Pausado" , white , 25, "large")
-	message_to_screen("C para continuar Q para sair" , white , 75)
+	gameDisplay.blit(pausaimg,[0, (display_height/2)-0])
+	#message_to_screen("C para continuar Q para sair" , white , 175)
 	
-	gameDisplay.blit(logoimg , [0, (display_height/2)-150])
+	gameDisplay.blit(logoimg,[0, (display_height/2)-150])
 	
 	pygame.display.update()
-	clock.tick(5)		
-	
-	
+	#clock.tick(5)		
 	
 	while paused:
+	
+		button(bco2,150,500,200,50,bco1,action = "cont")##ARRUMAR
+		button(bsa1,550,500,100,50,bsa2,action = "quit")
+	
 		for event in pygame.event.get():
 			if event.type == pygame.QUIT:
 				pygame.quit()
@@ -52,17 +54,22 @@ def pause():
 				
 				elif event.key == pygame.K_q:
 					pygame.quit()
-					quit()
+					quit()		
 		
+		pygame.display.update()
 	
 def telas (tela):
 	gameDisplay.blit(tela , [0,0])
 	
 def game_intro():
+	pygame.mixer.music.load('muint.mp3')
 	logoy = (display_height/2)-150
 	
 	intro = True
+	if intro:
+		pygame.mixer.music.play(-1)
 	while intro :
+		
 		
 		for event in pygame.event.get():	
 			if event.type == pygame.QUIT:
@@ -82,12 +89,13 @@ def game_intro():
 		#gameDisplay.fill(black)
 		
 		#message_to_screen("Dungeon Runners",red,-100,"large")
-		message_to_screen("Use as cetas do teclado para se mover",white,-30)
-		message_to_screen("C para Jogar Q para sair", white,10)
-		message_to_screen("Scoreboard", white,50)
-		message_to_screen("Q para Sair", white,70)
-
+		message_to_screen("Use WASD para se mover",white,-30)
+		message_to_screen("Pressione P para Pausar o jogo",white,0)
 		
+		button(bjo1,150,500,120,50,bjo2,action = "play")
+		button(bsc1,290,500,250,50,bsc2,action = "score")
+		button(bsa1,550,500,100,50,bsa2,action = "quit")
+	
 		pygame.display.update()
 		clock.tick(5)		
 	
@@ -116,13 +124,46 @@ def text_objetcs (text , color,size):
 	elif size == 'large':
 		txtSurf = largefont.render(text , True , color)
 	return txtSurf , txtSurf.get_rect()	
-		
+	
+def text_to_button (msg,color,buttonx,buttony,buttonwidth,buttonheight,size = "small" ):
+	txtSurf , txtRect = text_objetcs(msg,color,size)
+	txtRect.center = ((buttonx+(buttonwidth/2)),buttony+(buttonheight/2))
+	gameDisplay.blit(txtSurf , txtRect)
+	
 def message_to_screen (msg,color,y_displace=0,size = "small"):
 	
 	txtSurf , txtRect = text_objetcs(msg , color,size)
-	txtRect.center = (display_width/2 ),(display_height/2)+y_displace
+	txtRect.center = int(display_width/2 ),int((display_height/2)+y_displace)
 	gameDisplay.blit(txtSurf , txtRect)
 
+def button(img,x,y,widht,height,img2,action = None):
+	
+	cur = pygame.mouse.get_pos()
+	click = pygame.mouse.get_pressed()	
+		
+	if x+widht > cur[0] > x and y+height > cur[1] >y:
+		#pygame.draw.rect(gameDisplay,color2,(x,y,widht,height))
+		gameDisplay.blit(img , (x,y))
+		if click[0] == 1 and action != None:
+			if action == "quit":
+				pygame.quit()
+				quit()
+				
+			if action == "play":
+				gameLoop()
+				
+			if action == "score":
+				print("not yet m8")
+			
+			if action == "cont":
+				paused = False
+		
+	else:
+		gameDisplay.blit(img2 , (x,y))
+		
+	#text_to_button(text,black,x,y,widht,height)
+	
+		
 	
 	
 gameDisplay = pygame.display.set_mode((display_width,display_height))
@@ -135,11 +176,21 @@ imgl = pygame.image.load('knightr.png')
 imgr = pygame.image.load('knightl.png')
 logoimg =pygame.image.load('logo.png')
 telainicio = pygame.image.load('room.png')
-tela2 = pygame.image.load('room2.png')
-tela3 = pygame.image.load('room3.png')
-tela4 = pygame.image.load('room4.png')
-tela5 = pygame.image.load('room5.png')
-tela6 = pygame.image.load('room4.png')#
+tela2 = pygame.image.load('r2.png')
+tela3 = pygame.image.load('r3.png')
+tela4 = pygame.image.load('r4.png')
+tela5 = pygame.image.load('r5.png')
+tela6 = pygame.image.load('r6.png')#
+bjo1 = pygame.image.load('bjo1.png')
+bjo2 = pygame.image.load('bjo2.png')
+bsc1 =  pygame.image.load('bsc1.png')
+bsc2 =  pygame.image.load('bsc2.png')
+bsa1 =  pygame.image.load('bsa1.png')
+bsa2 =  pygame.image.load('bsa2.png')
+pausaimg = pygame.image.load('bpa1.png')
+bco1 = pygame.image.load('bco1.png')
+bco2 = pygame.image.load('bco2.png')
+
 
 tela = telainicio
 appleThickness = 30
@@ -167,7 +218,7 @@ def gameLoop():
 	
 	while not gameExit:
 	
-		while gameOver == True:
+		while gameOver == True: #olocar as musica
 			gameDisplay.fill(black)
 			message_to_screen("GAME OVER",red,size = 'large')
 			message_to_screen("C para continuar ou Q para sair",white, -50,size = 'medium')
@@ -186,25 +237,25 @@ def gameLoop():
 			
 			pygame.display.update()
 
-		for event in pygame.event.get():
+		for event in pygame.event.get(): #colocar as musica
 			#print(event)
 			if event.type == pygame.QUIT:
 				gameExit = True 
 			
 			if event.type == pygame.KEYDOWN:
-				if event.key == pygame.K_LEFT:
+				if event.key == pygame.K_a:
 					direction = "left"
 					lead_x_change = -block_size
 					lead_y_change = 0
-				if event.key == pygame.K_RIGHT:
+				elif event.key == pygame.K_d:
 					direction = "right"
 					lead_x_change = block_size
 					lead_y_change = 0
-				if event.key == pygame.K_UP:
+				elif event.key == pygame.K_w:
 					#direction = "up"
 					lead_y_change = -block_size
 					lead_x_change = 0
-				if event.key == pygame.K_DOWN:
+				elif event.key == pygame.K_s:
 					#direction = "down"
 					lead_y_change = block_size
 					lead_x_change = 0
@@ -213,34 +264,30 @@ def gameLoop():
 					pause()
 			
 			elif event.type == pygame.KEYUP:	
-				if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
+				if event.key == pygame.K_a or event.key == pygame.K_d:
 					lead_x_change = 0
-				elif event.key == pygame.K_UP or event.key == pygame.K_DOWN :
+				elif event.key == pygame.K_w or event.key == pygame.K_s :
 					#direction = "up"
 					lead_y_change = 0
+				
+		if tela == telainicio:	
+			pygame.draw.rect(gameDisplay,black,(((display_width/2)+20) ,0,40,10))
 			
-			
-		
-		if tela == telainicio:
-		
-			if lead_y < 0 :   			#cima
+			if lead_y < 0 and (display_width/2)+20 > lead_x > (display_width/2)-20 :   			#cima
 				tela = tela2
 				lead_y = display_height-5
-				
+			#lead_y < 0 and 
 		
 		if tela == tela2:
-	
+			
 			if lead_x >= display_width:		#direita
 				tela = tela3
-				lead_x = 0+5
-				
+				lead_x = 0+5		
 			elif lead_y >= display_height : #baixo
 				tela = telainicio 
-				lead_y = 0+5
-				
+				lead_y = 0+5			
 
 		if tela == tela3:
-		
 			if lead_x >= display_width:		#direita
 				tela = tela4
 				lead_x = 0+5
@@ -248,22 +295,18 @@ def gameLoop():
 				tela = tela2
 				lead_x = display_width+5
 		
-		if tela == tela4:
-			
+		if tela == tela4:		
 			if lead_y >= display_height : #baixo
 				tela = tela5 #barreirana1
-				lead_y = 0+5
-			
+				lead_y = 0+5	
 			elif  lead_x < 0 :				#Esquerda
 				tela = tela3
 				lead_x = display_width+5
 			
-		if tela == tela5:
-		
+		if tela == tela5:	
 			if  lead_x < 0 :				#Esquerda
 				tela = tela6
-				lead_x = display_width+5
-			
+				lead_x = display_width+5		
 			elif lead_y < 0 :   			#cima
 				tela = tela4
 				lead_y = display_height-5
@@ -296,4 +339,5 @@ def gameLoop():
 	quit()
 	
 game_intro()
+
 gameLoop()

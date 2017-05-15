@@ -29,19 +29,15 @@ largefont = pygame.font.SysFont("arialms  ",80)
 	# return randAppleX , randAppleY
 
 def pause():
+	global paused
 	paused = True
-	
 	gameDisplay.blit(pausaimg,[0, (display_height/2)-0])
 	#message_to_screen("C para continuar Q para sair" , white , 175)
-	
 	gameDisplay.blit(logoimg,[0, (display_height/2)-150])
-	
 	pygame.display.update()
-	#clock.tick(5)		
-	
+	#clock.tick(5)			
 	while paused:
-	
-		button(bco2,150,500,200,50,bco1,action = "cont")##ARRUMAR
+		button(bco2,150,500,200,50,bco1,action = "cont")
 		button(bsa1,550,500,100,50,bsa2,action = "quit")
 	
 		for event in pygame.event.get():
@@ -89,15 +85,16 @@ def game_intro():
 		#gameDisplay.fill(black)
 		
 		#message_to_screen("Dungeon Runners",red,-100,"large")
-		message_to_screen("Use WASD para se mover",white,-30)
-		message_to_screen("Pressione P para Pausar o jogo",white,0)
+		gameDisplay.blit(instruimg , [0,(display_height/2)])
+		#message_to_screen("Use WASD para se mover",white,-30)
+		#message_to_screen("Pressione P para Pausar o jogo",white,0)
 		
 		button(bjo1,150,500,120,50,bjo2,action = "play")
 		button(bsc1,290,500,250,50,bsc2,action = "score")
 		button(bsa1,550,500,100,50,bsa2,action = "quit")
 	
 		pygame.display.update()
-		clock.tick(5)		
+		clock.tick(5)	
 	
 
 def score(score):
@@ -137,7 +134,7 @@ def message_to_screen (msg,color,y_displace=0,size = "small"):
 	gameDisplay.blit(txtSurf , txtRect)
 
 def button(img,x,y,widht,height,img2,action = None):
-	
+	global paused
 	cur = pygame.mouse.get_pos()
 	click = pygame.mouse.get_pressed()	
 		
@@ -166,6 +163,7 @@ def button(img,x,y,widht,height,img2,action = None):
 		
 	
 	
+	
 gameDisplay = pygame.display.set_mode((display_width,display_height))
 pygame.display.set_caption("Dungeon Runners")
 icon = pygame.image.load('knightr.png')
@@ -190,7 +188,8 @@ bsa2 =  pygame.image.load('bsa2.png')
 pausaimg = pygame.image.load('bpa1.png')
 bco1 = pygame.image.load('bco1.png')
 bco2 = pygame.image.load('bco2.png')
-
+portaimg = pygame.image.load('porta.png')
+instruimg = pygame.image.load('instru.png')
 
 tela = telainicio
 appleThickness = 30
@@ -271,12 +270,14 @@ def gameLoop():
 					lead_y_change = 0
 				
 		if tela == telainicio:	
-			pygame.draw.rect(gameDisplay,black,(((display_width/2)+20) ,0,40,10))
+			#pygame.draw.rect(gameDisplay,black,(((display_width/2)+20) ,0,40,10))
 			
-			if lead_y < 0 and (display_width/2)+20 > lead_x > (display_width/2)-20 :   			#cima
+			if lead_y < 0 :# and (display_width/2)+20 > lead_x > (display_width/2)-20 :   			#cima
 				tela = tela2
 				lead_y = display_height-5
 			#lead_y < 0 and 
+		
+		
 		
 		if tela == tela2:
 			
@@ -297,7 +298,7 @@ def gameLoop():
 		
 		if tela == tela4:		
 			if lead_y >= display_height : #baixo
-				tela = tela5 #barreirana1
+				tela = tela5 
 				lead_y = 0+5	
 			elif  lead_x < 0 :				#Esquerda
 				tela = tela3

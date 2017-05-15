@@ -3,16 +3,12 @@ Projeto final Design de Software engenharia INSPER
 
 pausa  (X)
 
-incluir vida ( )
+incluir vida
 
-musica (X)
+musica
 
-barreiras ( )
+barreiras 
 
-lava ( )
+lava
 
-barra de vida ( )
-
-Inimigos ( )
-
-Combate ( )
+barra de vida 

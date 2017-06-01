@@ -6,7 +6,7 @@ pygame.init()
 
 white = (255,255,255)
 black  = (0,0,0)
-red = (255,0,0)
+red = (200,0,0)
 green = (0,155,0)
 trans = (255,255,255,128)
 
@@ -22,11 +22,6 @@ direction = "right"
 smallfont = pygame.font.SysFont("arialms  ",25)
 medfont = pygame.font.SysFont("arialms  ",50)
 largefont = pygame.font.SysFont("arialms  ",80) 
-
-# def randAppleGen():
-	# randAppleX = round(random.randrange(0,display_width-appleThickness))#/10.0)*10	
-	# randAppleY = round(random.randrange(0, display_height-appleThickness))#/10.0)*10
-	# return randAppleX , randAppleY
 
 def porta(lead_x,lead_y):
 	if tela == telainicio:
@@ -52,6 +47,26 @@ def porta(lead_x,lead_y):
 		pygame.draw.rect(gameDisplay,black,(px2,py2,pwidht2,pheight2))
 		
 def lava(lead_x,lead_y):
+				
+	if tela == tela2:
+		lx1 = display_width/2
+		ly1 = (display_height/2)+50
+		lwidht1 = (display_width/2)-32
+		lheight1 = 100
+		pygame.draw.rect(gameDisplay,red,(lx1,ly1,lwidht1,lheight1))											
+		if lead_x>= lx1 and lead_x <= lx1 + lwidht1 or lead_x + block_size>= lx1 and lead_x + block_size <= lx1 + lwidht1:
+			if lead_y>= ly1 and lead_y <= ly1 + lheight1 or lead_y + block_size>= ly1 and lead_y + block_size <= ly1 + lheight1:
+				return 1
+				
+		lx2 = display_width/2
+		ly2 = 100
+		lwidht2 = 30
+		lheight2 = (display_width/2)-50
+		pygame.draw.rect(gameDisplay,red,(lx2,ly2,lwidht2,lheight2))											
+		if lead_x>= lx2 and lead_x <= lx2 + lwidht2 or lead_x + block_size>= lx2 and lead_x + block_size <= lx2 + lwidht2:
+			if lead_y>= ly2 and lead_y <= ly2 + lheight2 or lead_y + block_size>= ly2 and lead_y + block_size <= ly2 + lheight2:
+				return 1
+				
 	if tela == tela3:
 		lx = display_width/2
 		ly = display_height/2
@@ -59,34 +74,63 @@ def lava(lead_x,lead_y):
 		lheight = 30
 		
 		pygame.draw.rect(gameDisplay,red,(lx,ly,lwidht,lheight))
-		
+		#COLISAO
 		if lead_x>= lx and lead_x <= lx + lwidht or lead_x + block_size>= lx and lead_x + block_size <= lx + lwidht:
 			if lead_y>= ly and lead_y <= ly + lheight or lead_y + block_size>= ly and lead_y + block_size <= ly + lheight:
 				
 				print ('colisao')
 				return 1
-		
-def inimigo1 (lead_x,lead_y):
+	
+def inimigo1 (lead_x,lead_y,direction):
+	#xar = display_width/2
+	global vivo1
+	global vivo2
 	
 	if tela == tela2:
-		xar = display_width/2
 		yar = 50
 		war = 60
 		har = 30
-		xar += 10
-		gameDisplay.blit(aranha,(xar, yar))
-		#if xar > 50 : 
+		xar = display_width/2
+		xar2 = 300
 		
-		#if xar < display_width-50:
-		#	xar-=10
-		
-		if lead_x>= xar and lead_x <= xar + war or lead_x + block_size>= xar and lead_x + block_size <= xar + war:
-			if lead_y>= yar and lead_y <= yar + har or lead_y + block_size>= yar and lead_y + block_size <= yar + har:
-				
-				print ('colisao')
-				return 1
+		##ARANA 1
+		if direction == 'righta':	#COMBATE
+			if lead_y >= yar or lead_y <= yar+har:
+				if lead_x+50 >= xar:
+					print("morreu i guess")
+					vivo1= False			
+		if direction == 'lefta' :					
+			if lead_y >= yar or lead_y <= yar+har:
+				if lead_x+50 >= xar	:
+					print("morreu i guess")
+					vivo1= False	
+					
+		if vivo1 == True:
+			gameDisplay.blit(aranha,(xar, yar))#colisao
+			if lead_x>= xar and lead_x <= xar + war or lead_x + block_size>= xar and lead_x + block_size <= xar + war:
+				if lead_y>= yar and lead_y <= yar + har or lead_y + block_size>= yar and lead_y + block_size <= yar + har:
+					print ('colisao')
+					return 1	
+		##ARANHA 2
+		if direction == 'righta':	#COMBATE
+			if lead_y >= yar or lead_y <= yar+har:
+				if lead_x+50 >= xar2	:
+					print("morreu i guess")
+					vivo2= False			
+		if direction == 'lefta' :					
+			if lead_y >= yar or lead_y <= yar+har:
+				if lead_x+50 >= xar2	:
+					print("morreu i guess")
+					vivo2= False		
+		if vivo2 == True:
+			gameDisplay.blit(aranha,(xar2, yar))#colisao
+			if lead_x>= xar2 and lead_x <= xar2 + war or lead_x + block_size>= xar and lead_x + block_size <= xar2 + war:
+				if lead_y>= yar and lead_y <= yar + har or lead_y + block_size>= yar and lead_y + block_size <= yar + har:
+					print ('colisao2')
+					return 1 
 		
 	
+			##colocar +1 em uma lista de pontos
 def pause():
 	global paused
 	paused = True
@@ -129,23 +173,12 @@ def game_intro():
 			if event.type == pygame.QUIT:
 				pygame.quit()
 				quit()
-			if event.type == pygame.KEYDOWN:
-				if event.key == pygame.K_c:
-					
-					intro = False
-				if event.key == pygame.K_q:
-					pygame.quit()
-					quit()
-				
+			
 		telas(tela)	
 		gameDisplay.blit(logoimg , [0, logoy])
 		
-		#gameDisplay.fill(black)
-		
 		#message_to_screen("Dungeon Runners",red,-100,"large")
 		gameDisplay.blit(instruimg , [0,(display_height/2)])
-		#message_to_screen("Use WASD para se mover",white,-30)
-		#message_to_screen("Pressione P para Pausar o jogo",white,0)
 		
 		button(bjo1,150,500,120,50,bjo2,action = "play")
 		button(bsc1,290,500,250,50,bsc2,action = "score")
@@ -163,10 +196,12 @@ def player (posi,block_size):
 		head = imgr
 	if direction == "left":
 		head = imgl
-	#if direction == "up":
-	#	head = imgr
-	#if direction == "down":
-	#	head = imgl
+	if direction == "lefta":
+		head = imgra
+		
+	if direction == "righta":
+		head = imgla
+		
 
 	gameDisplay.blit(head,(posi[-1][0], posi[-1][1]))
 
@@ -216,6 +251,7 @@ def button(img,x,y,widht,height,img2,action = None):
 				
 			elif action == "menu":
 				tela = telainicio
+				pygame.time.wait(200)
 				game_intro()
 	else:
 		gameDisplay.blit(img2 , (x,y))
@@ -230,7 +266,9 @@ pygame.display.update()
 
 imgl = pygame.image.load('knightr.png')
 imgr = pygame.image.load('knightl.png')
-logoimg =pygame.image.load('logo.png')
+imgra = pygame.image.load('knightal.png')
+imgla =  pygame.image.load('knightar.png')
+logoimg = pygame.image.load('logo.png')
 telainicio = pygame.image.load('room.png')
 tela2 = pygame.image.load('r2.png')
 tela3 = pygame.image.load('r3.png')
@@ -258,8 +296,14 @@ clock = pygame.time.Clock()
 def gameLoop():
 	global direction
 	global tela
+	global vivo1
+	global vivo2
+	
+	vivo1 = True
+	vivo2 = True	
 	
 	appleThickness = 30
+	
 	
 	direction = 'right'
 	gameExit = False
@@ -267,8 +311,10 @@ def gameLoop():
 
 	lead_x = 61  #display_width/2
 	lead_y = display_height/2
-	lead_x_change = 10
+	lead_x_change = 0
 	lead_y_change = 0
+	movx = 20
+	movy = 20
 	
 	posi = []
 	inipos = []
@@ -276,7 +322,7 @@ def gameLoop():
 	
 	while not gameExit:   
 	
-		while gameOver == True: #olocar as musica
+		while gameOver == True: 
 			gameDisplay.fill(black)
 			gameDisplay.blit(goimg , [0,(display_height/2)-100])
 			button(bco2,50,500,200,50,bco1,action = "menu")
@@ -289,27 +335,28 @@ def gameLoop():
 			
 			pygame.display.update()
 
-		for event in pygame.event.get(): #colocar as musica
+		for event in pygame.event.get(): 
 			#print(event)
 			if event.type == pygame.QUIT:
 				gameExit = True 
 			
 			if event.type == pygame.KEYDOWN:
+					
 				if event.key == pygame.K_a:
 					direction = "left"
-					lead_x_change = -block_size
+					lead_x_change = -movx
 					lead_y_change = 0
 				elif event.key == pygame.K_d:
 					direction = "right"
-					lead_x_change = block_size
+					lead_x_change = movx
 					lead_y_change = 0
 				elif event.key == pygame.K_w:
 					#direction = "up"
-					lead_y_change = -block_size
+					lead_y_change = -movy
 					lead_x_change = 0
 				elif event.key == pygame.K_s:
 					#direction = "down"
-					lead_y_change = block_size
+					lead_y_change = movy
 					lead_x_change = 0
 				
 				elif event.key == pygame.K_p:
@@ -321,7 +368,23 @@ def gameLoop():
 				elif event.key == pygame.K_w or event.key == pygame.K_s :
 					#direction = "up"
 					lead_y_change = 0
-				
+			
+			if direction == "left":
+				if event.type == pygame.KEYDOWN:
+					if event.key == pygame.K_SPACE:
+						print("ataquel")
+						direction = "lefta"
+						
+						print("dpsataquel")
+						
+			if direction == "right":
+				if event.type == pygame.KEYDOWN:
+					if event.key == pygame.K_SPACE:
+						print("ataquer")
+						direction = "righta"
+
+						print("dpsataquer")
+						
 		if tela == telainicio:	
 			#pygame.draw.rect(gameDisplay,black,(((display_width/2)+20) ,0,40,10))
 			##porta(lead_x,lead_y,)
@@ -360,11 +423,16 @@ def gameLoop():
 					tela = tela3
 					lead_x = 0+pwidht2+1
 		
-			
 			if lead_x>= px1 and lead_x <= px1 + pwidht1 or lead_x + block_size>= px and lead_x + block_size <= px1 + pwidht1:
 				if lead_y>= py1 and lead_y <= py1 + pheight1 or lead_y+ block_size>= py1 and lead_y + block_size <= py1 + pheight1: 			#cima
 					tela = telainicio
 					lead_y = 60
+					
+			if direction == "lefta":
+				#if lead_x - 15 =< : 			#cima
+					
+				print("Ata")
+			
 					
 			if lead_y > display_height-50 :
 				lead_y -= block_size
@@ -417,18 +485,15 @@ def gameLoop():
 		listaposi.append(lead_x)
 		listaposi.append(lead_y)
 		posi.append(listaposi)
-		
-		if len(posi)> snakeLenght:
-			del posi[0]
 					
 		porta(lead_x,lead_y)
 		
 		player(posi,block_size)
 		
-		inimigo1(lead_x,lead_y)
+		inimigo1(lead_x,lead_y,direction)
 		
 		lava(lead_x,lead_y)				#########ihfaofoivbajiscbvjoibfdhjk\vh9esoifjbueikillmeplz
-		if lava(lead_x,lead_y) == 1 or inimigo1(lead_x,lead_y) == 1 :
+		if lava(lead_x,lead_y) == 1 or inimigo1(lead_x,lead_y,direction) == 1 :
 			gameOver = True 
 		else:
 			pass

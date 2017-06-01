@@ -6,9 +6,8 @@ pygame.init()
 
 white = (255,255,255)
 black  = (0,0,0)
-red = (200,0,0)
+red = (175,0,0)
 green = (0,155,0)
-trans = (255,255,255,128)
 
 display_width = 800
 display_height = 600
@@ -46,6 +45,56 @@ def porta(lead_x,lead_y):
 		pygame.draw.rect(gameDisplay,black,(px1,py1,pwidht1,pheight1))
 		pygame.draw.rect(gameDisplay,black,(px2,py2,pwidht2,pheight2))
 		
+	if tela == tela3:
+		pwidht1 = 30
+		pheight1 = 50
+		px1 = 0
+		py1 = (display_height-25)/2
+		pygame.draw.rect(gameDisplay,black,(px1,py1,pwidht1,pheight1))
+		
+		pwidht2 = 30
+		pheight2 = 50
+		px2 = display_width-pwidht2
+		py2 = (display_height-25)/2
+		pygame.draw.rect(gameDisplay,black,(px2,py2,pwidht2,pheight2))
+	
+	if tela == tela4:	
+		pwidht1 = 50
+		pheight1 = 50
+		px1 = (display_width-25)/2
+		py1 = display_height-pheight1
+		
+		pwidht2 = 30
+		pheight2 = 50
+		px2 = 0
+		py2 = (display_height-25)/2
+		
+		pygame.draw.rect(gameDisplay,black,(px1,py1,pwidht1,pheight1))
+		pygame.draw.rect(gameDisplay,black,(px2,py2,pwidht2,pheight2))
+		
+	if tela == tela5:
+		pwidht1 = 50
+		pheight1 = 50
+		px1 = (display_width-25)/2
+		py1 = 0
+		
+		pwidht2 = 60
+		pheight2 = 50
+		px2 = (display_width-30)/2
+		py2 = display_height-50
+		
+		pygame.draw.rect(gameDisplay,black,(px1,py1,pwidht1,pheight1))
+		pygame.draw.rect(gameDisplay,black,(px2,py2,pwidht2,pheight2))
+		
+	if tela == tela6:
+		px1 = (display_width-30)/2
+		py1 = 0
+		pwidht1 = 60
+		pheight1 = 50
+			
+		
+		pygame.draw.rect(gameDisplay,black,(px1,py1,pwidht1,pheight1))
+		
 def lava(lead_x,lead_y):
 				
 	if tela == tela2:
@@ -68,10 +117,11 @@ def lava(lead_x,lead_y):
 				return 1
 				
 	if tela == tela3:
-		lx = display_width/2
-		ly = display_height/2
-		lwidht = 20
-		lheight = 30
+		lwidht = 200
+		lheight = 240
+		lx = (display_width-lwidht)/2
+		ly = (display_height-lheight)/2
+		
 		
 		pygame.draw.rect(gameDisplay,red,(lx,ly,lwidht,lheight))
 		#COLISAO
@@ -129,7 +179,8 @@ def inimigo1 (lead_x,lead_y,direction):
 					print ('colisao2')
 					return 1 
 		
-	
+	if tela == tela3:
+		pass
 			##colocar +1 em uma lista de pontos
 def pause():
 	global paused
@@ -301,10 +352,7 @@ def gameLoop():
 	
 	vivo1 = True
 	vivo2 = True	
-	
-	appleThickness = 30
-	
-	
+
 	direction = 'right'
 	gameExit = False
 	gameOver = False
@@ -336,7 +384,6 @@ def gameLoop():
 			pygame.display.update()
 
 		for event in pygame.event.get(): 
-			#print(event)
 			if event.type == pygame.QUIT:
 				gameExit = True 
 			
@@ -386,8 +433,6 @@ def gameLoop():
 						print("dpsataquer")
 						
 		if tela == telainicio:	
-			#pygame.draw.rect(gameDisplay,black,(((display_width/2)+20) ,0,40,10))
-			##porta(lead_x,lead_y,)
 			px = (display_width-30)/2
 			py = 0
 			pwidht = 60
@@ -398,9 +443,9 @@ def gameLoop():
 					tela = tela2
 					lead_y = display_height - (pheight+block_size+1)
 						
-			if lead_y > display_height-50 :
+			if lead_y > display_height-50 :	#paredes
 				lead_y -= block_size
-			if lead_x > display_width-50 :#or lead_x < display_width+50:	
+			if lead_x > display_width-50 :
 				lead_x -= block_size
 			if lead_x < 50 : 
 				lead_x = block_size
@@ -420,23 +465,16 @@ def gameLoop():
 		
 			if lead_x>= px2 and lead_x <= px2 + pwidht2 or lead_x + block_size>= px2 and lead_x + block_size <= px2 + pwidht2:
 				if lead_y>= py2 and lead_y <= py2 + pheight2 or lead_y + block_size>= py2 and lead_y + block_size <= py2 + pheight2: 			#cima
-					tela = tela3
-					lead_x = 0+pwidht2+1
-		
+					tela = tela3  #PORTA2
+					lead_x = 50
 			if lead_x>= px1 and lead_x <= px1 + pwidht1 or lead_x + block_size>= px and lead_x + block_size <= px1 + pwidht1:
 				if lead_y>= py1 and lead_y <= py1 + pheight1 or lead_y+ block_size>= py1 and lead_y + block_size <= py1 + pheight1: 			#cima
-					tela = telainicio
+					tela = telainicio #PORTA1
 					lead_y = 60
-					
-			if direction == "lefta":
-				#if lead_x - 15 =< : 			#cima
-					
-				print("Ata")
-			
-					
-			if lead_y > display_height-50 :
+	
+			if lead_y > display_height-50 :	#paredes
 				lead_y -= block_size
-			if lead_x > display_width-50 :#or lead_x < display_width+50:	
+			if lead_x > display_width-50 :
 				lead_x -= block_size
 			if lead_x < 50 : 
 				lead_x = block_size
@@ -444,36 +482,113 @@ def gameLoop():
 				lead_y = block_size
 		
 		if tela == tela3:
-			if lead_x >= display_width:		#direita
-				tela = tela4
-				lead_x = 0+5
-			elif  lead_x < 0 :				#Esquerda
-				tela = tela2
-				lead_x = display_width+5
+			pwidht1 = 30
+			pheight1 = 50
+			pwidht2 = 30
+			pheight2 = 50
+			px1 = 0
+			py1 = (display_height-25)/2
+			px2 = display_width-pwidht2
+			py2 = (display_height-25)/2
 			
-			#gameDisplay.blit(img())
+			if lead_x>= px1 and lead_x <= px1 + pwidht1 or lead_x + block_size>= px and lead_x + block_size <= px1 + pwidht1:
+				if lead_y>= py1 and lead_y <= py1 + pheight1 or lead_y+ block_size>= py1 and lead_y + block_size <= py1 + pheight1: 			#cima
+					tela = tela2 #PORTA1
+					lead_x = display_width-80
+			if lead_x>= px2 and lead_x <= px2 + pwidht2 or lead_x + block_size>= px2 and lead_x + block_size <= px2 + pwidht2:
+				if lead_y>= py2 and lead_y <= py2 + pheight2 or lead_y + block_size>= py2 and lead_y + block_size <= py2 + pheight2: 			#cima
+					tela = tela4 #PORTA2
+					lead_x = 50
 			
-			if lead_y < 50:  
-				lead_y = block_size
-			if lead_y >display_height-50 : 
+			if lead_y > display_height-50 :	#paredes
 				lead_y -= block_size
+			if lead_x > display_width-50 :
+				lead_x -= block_size
+			if lead_x < 50 : 
+				lead_x = block_size
+			if lead_y < 49:  
+				lead_y = block_size
 		
 		if tela == tela4:
-			if lead_y >= display_height : #baixo
-				tela = tela5 
-				lead_y = 0+5	
-			elif  lead_x < 0 :				#Esquerda
-				tela = tela3
-				lead_x = display_width+5
+			pwidht1 = 50
+			pheight1 = 50
+			px1 = (display_width-25)/2
+			py1 = display_height-pheight1
+			
+			pwidht2 = 30
+			pheight2 = 50
+			px2 = 0
+			py2 = (display_height-25)/2
+		
+			if lead_x>= px2 and lead_x <= px2 + pwidht2 or lead_x + block_size>= px2 and lead_x + block_size <= px2 + pwidht2:
+				if lead_y>= py2 and lead_y <= py2 + pheight2 or lead_y + block_size>= py2 and lead_y + block_size <= py2 + pheight2: 			#cima
+					tela = tela3  #PORTA2
+					lead_x = display_width-50
+			if lead_x>= px1 and lead_x <= px1 + pwidht1 or lead_x + block_size>= px and lead_x + block_size <= px1 + pwidht1:
+				if lead_y>= py1 and lead_y <= py1 + pheight1 or lead_y+ block_size>= py1 and lead_y + block_size <= py1 + pheight1: 			#cima
+					tela = tela5#PORTA1
+					lead_y = 60
+	
+			if lead_y > display_height-50 :	#paredes
+				lead_y -= block_size
+			if lead_x > display_width-50 :
+				lead_x -= block_size
+			if lead_x < 50 : 
+				lead_x = block_size
+			if lead_y < 49:  
+				lead_y = block_size
 			
 		if tela == tela5:	
-			if  lead_x < 0 :				#Esquerda
-				tela = tela6
-				lead_x = display_width+5		
-			elif lead_y < 0 :   			#cima
-				tela = tela4
-				lead_y = display_height-5
+			pwidht1 = 50
+			pheight1 = 50
+			px1 = (display_width-25)/2
+			py1 = 0
+			
+			pwidht2 = 60
+			pheight2 = 50
+			px2 = (display_width-30)/2
+			py2 = display_height-50
+		
+			if lead_x>= px2 and lead_x <= px2 + pwidht2 or lead_x + block_size>= px2 and lead_x + block_size <= px2 + pwidht2:
+				if lead_y>= py2 and lead_y <= py2 + pheight2 or lead_y + block_size>= py2 and lead_y + block_size <= py2 + pheight2: 			#cima
+					tela = tela6  #PORTA2
+					lead_y = 70
+			if lead_x>= px1 and lead_x <= px1 + pwidht1 or lead_x + block_size>= px and lead_x + block_size <= px1 + pwidht1:
+				if lead_y>= py1 and lead_y <= py1 + pheight1 or lead_y+ block_size>= py1 and lead_y + block_size <= py1 + pheight1: 			#cima
+					tela = tela4#PORTA1
+					lead_y = display_height-70
+	
+			if lead_y > display_height-50 :	#paredes
+				lead_y -= block_size
+			if lead_x > display_width-50 :
+				lead_x -= block_size
+			if lead_x < 50 : 
+				lead_x = block_size
+			if lead_y < 49:  
+				lead_y = block_size
 				
+		if tela == tela6:
+		
+			px = (display_width-30)/2
+			py = 0
+			pwidht = 60
+			pheight = 50
+			
+			if lead_x>= px and lead_x <= px + pwidht or lead_x + block_size>= px and lead_x + block_size <= px + pwidht:
+				if lead_y>= py and lead_y <= py + pheight or lead_y + block_size>= py and lead_y + block_size <= py + pheight: 			#cima
+					tela = tela5
+					lead_y = display_height - (pheight+block_size+1)
+			
+			if lead_y > display_height-50 :	#paredes
+				lead_y -= block_size
+			if lead_x > display_width-50 :
+				lead_x -= block_size
+			if lead_x < 50 : 
+				lead_x = block_size
+			if lead_y < 49:  
+				lead_y = block_size
+
+		
 		lead_x += lead_x_change	
 		lead_y += lead_y_change	
 		

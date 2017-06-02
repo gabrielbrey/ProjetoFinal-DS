@@ -129,7 +129,7 @@ def lava(lead_x,lead_y):
 		if lead_x>= lx and lead_x <= lx + lwidht or lead_x + block_size>= lx and lead_x + block_size <= lx + lwidht:
 			if lead_y>= ly and lead_y <= ly + lheight or lead_y + block_size>= ly and lead_y + block_size <= ly + lheight:
 				
-				print ('colisao')
+				
 				return 1
 	
 	if tela == tela4:
@@ -205,8 +205,8 @@ def lava(lead_x,lead_y):
 		pygame.draw.rect(gameDisplay,red,(lx1,ly1,lwidht1,lheight1))											
 		if lead_x>= lx1 and lead_x <= lx1 + lwidht1 or lead_x + block_size>= lx1 and lead_x + block_size <= lx1 + lwidht1:
 			if lead_y>= ly1 and lead_y <= ly1 + lheight1 or lead_y + block_size>= ly1 and lead_y + block_size <= ly1 + lheight1:
-				#return 1
-				pass
+				return 1
+			
 		
 		ly2 = 250
 		lwidht2 = 30
@@ -242,36 +242,36 @@ def inimigo1 (lead_x,lead_y,direction):
 		if direction == 'righta':	#COMBATE
 			if lead_y >= yar or lead_y <= yar+har:
 				if lead_x+50 >= xar:
-					print("morreu i guess")
+					
 					vivo1= False			
 		if direction == 'lefta' :					
 			if lead_y >= yar or lead_y <= yar+har:
 				if lead_x+50 >= xar	:
-					print("morreu i guess")
+				
 					vivo1= False	
 					
 		if vivo1 == True:
 			gameDisplay.blit(aranha,(xar, yar))#colisao
 			if lead_x>= xar and lead_x <= xar + war or lead_x + block_size>= xar and lead_x + block_size <= xar + war:
 				if lead_y>= yar and lead_y <= yar + har or lead_y + block_size>= yar and lead_y + block_size <= yar + har:
-					print ('colisao')
+					
 					return 1	
 		##ARANHA 2
 		if direction == 'righta':	#COMBATE
 			if lead_y >= yar2 or lead_y <= yar2+har:
 				if lead_x+50 >= xar2	:
-					print("morreu i guess")
+					
 					vivo2= False			
 		if direction == 'lefta' :					
 			if lead_y >= yar2 or lead_y <= yar2+har:
 				if lead_x+50 >= xar2	:
-					print("morreu i guess")
+					
 					vivo2= False		
 		if vivo2 == True:
 			gameDisplay.blit(aranha,(xar2, yar2))#colisao
 			if lead_x>= xar2 and lead_x <= xar2 + war or lead_x + block_size>= xar2 and lead_x + block_size <= xar2 + war:
 				if lead_y>= yar2 and lead_y <= yar2 + har or lead_y + block_size>= yar2 and lead_y + block_size <= yar2 + har:
-					print ('colisao2')
+					
 					return 1 
 		
 	if tela == tela3:
@@ -284,19 +284,19 @@ def inimigo1 (lead_x,lead_y,direction):
 		if direction == 'righta':	#COMBATE
 			if lead_y >= yz and lead_y <= yz+hz:
 				if lead_x+50 >= xz:
-					print("morreu i guess")
+					
 					vivo3= False			
 		if direction == 'lefta' :					
 			if lead_y >= yz and lead_y <= yz+hz:
 				if lead_x+50 >= xz	:
-					print("morreu i guess")
+					
 					vivo3= False	
 					
 		if vivo3 == True:
 			gameDisplay.blit(zumbi,(xz, yz))#colisao
 			if lead_x>= xz and lead_x <= xz + wz or lead_x + block_size>= xz and lead_x + block_size <= xz + wz:
 				if lead_y>= yz and lead_y <= yz + hz or lead_y + block_size>= yz and lead_y + block_size <= yz + hz:
-					print ('colisao')
+					
 					return 1	
 		
 		yar = 50
@@ -308,18 +308,18 @@ def inimigo1 (lead_x,lead_y,direction):
 		if direction == 'righta':	#COMBATE
 			if lead_y >= yar or lead_y <= yar+har:
 				if lead_x+50 >= xar	:
-					print("morreu i guess")
+					
 					vivo4= False			
 		if direction == 'lefta' :					
 			if lead_y >= yar or lead_y <= yar+har:
 				if lead_x+50 >= xar	:
-					print("morreu i guess")
+					
 					vivo4= False		
 		if vivo4 == True:
 			gameDisplay.blit(aranha,(xar, yar))#colisao
 			if lead_x>= xar and lead_x <= xar + war or lead_x + block_size>= xar and lead_x + block_size <= xar + war:
 				if lead_y>= yar and lead_y <= yar + har or lead_y + block_size>= yar and lead_y + block_size <= yar + har:
-					print ('colisao2')
+					
 					return 1 
 		
 	if tela == tela4:
@@ -332,18 +332,18 @@ def inimigo1 (lead_x,lead_y,direction):
 		if direction == 'righta':	#COMBATE
 			if lead_y >= yar or lead_y <= yar+har:
 				if lead_x+50 >= xar	:
-					print("morreu i guess")
+					
 					vivo5= False			
 		if direction == 'lefta' :					
 			if lead_y >= yar or lead_y <= yar+har:
 				if lead_x+50 >= xar	:
-					print("morreu i guess")
+					
 					vivo5= False		
 		if vivo5 == True:
 			gameDisplay.blit(aranha,(xar, yar))#colisao
 			if lead_x>= xar and lead_x <= xar + war or lead_x + block_size>= xar and lead_x + block_size <= xar + war:
 				if lead_y>= yar and lead_y <= yar + har or lead_y + block_size>= yar and lead_y + block_size <= yar + har:
-					print ('colisao2')
+					
 					return 1
 
 		hz = 30
@@ -354,19 +354,19 @@ def inimigo1 (lead_x,lead_y,direction):
 		if direction == 'righta':	#COMBATE
 			if lead_y >= yz and lead_y <= yz+hz:
 				if lead_x+50 >= xz:
-					print("morreu i guess")
+					
 					vivo8= False			
 		if direction == 'lefta' :					
 			if lead_y >= yz and lead_y <= yz+hz:
 				if lead_x+50 >= xz	:
-					print("morreu i guess")
+					
 					vivo8= False	
 					
 		if vivo8 == True:
 			gameDisplay.blit(aranha,(xz, yz))#colisao
 			if lead_x>= xz and lead_x <= xz + wz or lead_x + block_size>= xz and lead_x + block_size <= xz + wz:
 				if lead_y>= yz and lead_y <= yz + hz or lead_y + block_size>= yz and lead_y + block_size <= yz + hz:
-					print ('colisao')
+					
 					return 1	
 
 	if tela == tela5:	
@@ -378,19 +378,19 @@ def inimigo1 (lead_x,lead_y,direction):
 		if direction == 'righta':	#COMBATE
 			if lead_y >= yz and lead_y <= yz+hz:
 				if lead_x+50 >= xz:
-					print("morreu i guess")
+					
 					vivo6= False			
 		if direction == 'lefta' :					
 			if lead_y >= yz and lead_y <= yz+hz:
 				if lead_x-50 >= xz	:
-					print("morreu i guess")
+					
 					vivo6= False	
 					
 		if vivo6 == True:
 			gameDisplay.blit(esqueleto,(xz, yz))#colisao
 			if lead_x>= xz and lead_x <= xz + wz or lead_x + block_size>= xz and lead_x + block_size <= xz + wz:
 				if lead_y>= yz and lead_y <= yz + hz or lead_y + block_size>= yz and lead_y + block_size <= yz + hz:
-					print ('colisao')
+					
 					return 1	
 		
 		yar = 500
@@ -401,18 +401,18 @@ def inimigo1 (lead_x,lead_y,direction):
 		if direction == 'righta':	#COMBATE
 			if lead_y >= yar and lead_y <= yar+har:
 				if lead_x+50 >= xar	:
-					print("morreu i guess")
+					
 					vivo7= False			
 		if direction == 'lefta' :					
 			if lead_y >= yar and lead_y <= yar+har:
 				if lead_x-50 >= xar	:
-					print("morreu i guess")
+					
 					vivo7= False		
 		if vivo7 == True:
 			gameDisplay.blit(esqueleto,(xar, yar))#colisao
 			if lead_x>= xar and lead_x <= xar + war or lead_x + block_size>= xar and lead_x + block_size <= xar + war:
 				if lead_y>= yar and lead_y <= yar + har or lead_y + block_size>= yar and lead_y + block_size <= yar + har:
-					print ('colisao2')
+					
 					return 1 
 					
 	if tela == tela6:
@@ -424,13 +424,13 @@ def inimigo1 (lead_x,lead_y,direction):
 		if direction == 'righta':	#COMBATE
 			if lead_y >= yz and lead_y <= yz+hz:
 				if lead_x+50 >= xz:
-					print("morreu i guess")
+					
 					vivo9= False
 					gameEnd = True
 		if direction == 'lefta' :					
 			if lead_y >= yz and lead_y <= yz+hz:
 				if lead_x+50 >= xz	:
-					print("morreu i guess")
+					
 					vivo9= False
 					gameEnd = True
 					
@@ -438,7 +438,7 @@ def inimigo1 (lead_x,lead_y,direction):
 			gameDisplay.blit(demonho,(xz, yz))#colisao
 			if lead_x>= xz and lead_x <= xz + wz or lead_x + block_size>= xz and lead_x + block_size <= xz + wz:
 				if lead_y>= yz and lead_y <= yz + hz or lead_y + block_size>= yz and lead_y + block_size <= yz + hz:
-					print ('colisao')
+					
 					return 1	
 		
 def pause():
@@ -491,7 +491,7 @@ def game_intro():
 		gameDisplay.blit(instruimg , [0,(display_height/2)])
 		
 		button(bjo1,150,500,120,50,bjo2,action = "play")
-		button(bsc1,290,500,250,50,bsc2,action = "score")
+		
 		button(bsa1,550,500,100,50,bsa2,action = "quit")
 	
 		pygame.display.update()
@@ -512,10 +512,6 @@ def player (posi,block_size):
 	gameDisplay.blit(head,(posi[-1][0], posi[-1][1]))
 
 	
-	txtSurf , txtRect = text_objetcs(msg , color,size)
-	txtRect.center = int(display_width/2 ),int((display_height/2)+y_displace)
-	gameDisplay.blit(txtSurf , txtRect)
-	
 def button(img,x,y,widht,height,img2,action = None):
 	global paused
 	global tela
@@ -532,9 +528,6 @@ def button(img,x,y,widht,height,img2,action = None):
 			elif action == "quit":
 				pygame.quit()
 				quit()
-				
-			elif action == "score":
-				print("not yet m8")
 			
 			elif action == "cont":
 				paused = False
@@ -628,7 +621,7 @@ def gameLoop():
 	
 	while not gameExit:   
 		while gameEnd == True: 
-			gameDisplay.blit(fim , [0,(display_height/2)-100]
+			gameDisplay.blit(fim , [0,(display_height/2)-100])
 			button(bco2,50,500,200,50,bco1,action = "menu")
 			button(bsa1,650,500,100,50,bsa2,action = "quit")
 			
@@ -688,18 +681,18 @@ def gameLoop():
 			if direction == "left":
 				if event.type == pygame.KEYDOWN:
 					if event.key == pygame.K_SPACE:
-						print("ataquel")
+						
 						direction = "lefta"
 						
-						print("dpsataquel")
+						
 						
 			if direction == "right":
 				if event.type == pygame.KEYDOWN:
 					if event.key == pygame.K_SPACE:
-						print("ataquer")
+						
 						direction = "righta"
 
-						print("dpsataquer")
+						
 						
 		if tela == telainicio:	
 			px = (display_width-30)/2
@@ -876,7 +869,7 @@ def gameLoop():
 		
 		inimigo1(lead_x,lead_y,direction)
 		
-		lava(lead_x,lead_y)				#########ihfaofoivbajiscbvjoibfdhjk\vh9esoifjbueikillmeplz
+		lava(lead_x,lead_y)				#ativa lava
 		if lava(lead_x,lead_y) == 1 or inimigo1(lead_x,lead_y,direction) == 1 :
 			gameOver = True 
 		else:
